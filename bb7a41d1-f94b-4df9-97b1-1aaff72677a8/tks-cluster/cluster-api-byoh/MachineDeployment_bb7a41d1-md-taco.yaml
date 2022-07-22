@@ -1,0 +1,30 @@
+# Source: cluster-api-byoh/templates/machinedeployment.yaml
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: bb7a41d1-md-taco
+  namespace: bb7a41d1
+spec:
+  clusterName: bb7a41d1
+  replicas: 1
+  selector:
+    matchLabels: null
+  template:
+    metadata:
+      labels:
+        servicemesh: enabled
+        taco-egress-gateway: enabled
+        taco-ingress-gateway: enabled
+        taco-lma: enabled
+    spec:
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+          kind: KubeadmConfigTemplate
+          name: bb7a41d1-md-taco
+      clusterName: bb7a41d1
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+        kind: ByoMachineTemplate
+        name: bb7a41d1-md-taco
+      version: v1.22.3
